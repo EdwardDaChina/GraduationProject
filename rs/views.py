@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm
 from .models import Profile
-from .models import Category, Product
+from .models import Genre, Product
 
 
 @login_required
@@ -19,15 +19,15 @@ def product_detail(request, id, slug):
     return render(request, 'rs/product/detail.html', {'product': product})
 
 
-def product_list(request, category_slug=None):
-    category = None
-    categories = Category.objects.all()  # 编译器问题，不影响代码执行
+def product_list(request, genre_slug=None):
+    genre = None
+    genres = Genre.objects.all()  # 编译器问题，不影响代码执行
     products = Product.objects.all()
-    if category_slug:
-        category = get_object_or_404(categories, slug=category_slug)
-        products = products.filter(category=category)
+    if genre_slug:
+        genre = get_object_or_404(genres, slug=genre_slug)
+        products = products.filter(genre=genre)
     return render(request, 'rs/product/list.html',
-                  {'category': category, 'categories': categories, 'products': products})
+                  {'genre': genre, 'genres': genres, 'products': products})
 
 
 @login_required
