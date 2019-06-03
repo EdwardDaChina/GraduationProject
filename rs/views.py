@@ -9,11 +9,6 @@ from .models import Profile
 from .models import Genre, Product
 
 
-@login_required
-def dashboard(request):
-    return render(request, 'rs/dashboard.html')
-
-
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug)
     return render(request, 'rs/product/detail.html', {'product': product})
@@ -63,6 +58,11 @@ def user_login(request):
         form = LoginForm()
 
     return render(request, 'rs/login.html', {'form': form})
+
+
+@login_required
+def dashboard(request):
+    return render(request, 'rs/dashboard.html', {'section': 'dashboard'})
 
 
 def register(request):  # 注册
