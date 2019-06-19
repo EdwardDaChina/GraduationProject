@@ -3,6 +3,28 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-    <h1>Dashboard</h1>
-    <p>Welcome to your dashboard.</p>
+
+<h1>Welcome to your Personal Center.</h1>
+<p> You can <a href="{% url 'rs:product_list' %}">check your recommendations</a>.</p>
+<p> You can <a href="{% url 'rs:password_change' %}">change your password</a> here.</p>
+
+<h2></h2>
+
+<h1>Your Profile</h1>
+<p><span class="user">
+        {% if request.user.is_authenticated %}
+            Your Username :{{ request.user.username }}.
+        {% else %}
+            <a href="{% url 'rs:login' %}">Log-in</a>
+        {% endif %}
+        </span></p>
+
+<p><span class="user">
+        {% if request.user.is_authenticated %}
+            Your Email :{{ request.user.email }}.
+        {% else %}
+            <a href="{% url 'rs:login' %}">Log-in</a>
+        {% endif %}
+        </span></p>
+
 {% endblock %}

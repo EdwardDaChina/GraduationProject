@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Comment
 
 
 class UserEditForm(forms.ModelForm):  # 这个表单依据User类生成，让用户输入姓，名和电子邮件
@@ -16,7 +16,7 @@ class ProfileEditForm(forms.ModelForm):  # 这个表单依据Profile类生成，
 
 
 class UserRegistrationForm(forms.ModelForm):  # 创建注册表单
-    password = forms.CharField(label='password', widget=forms.PasswordInput)
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput)
 
     class Meta:
@@ -32,5 +32,11 @@ class UserRegistrationForm(forms.ModelForm):  # 创建注册表单
 
 class LoginForm(forms.Form):  # 创建登陆表单
     username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput)  # 一般密码框不会明文显示，这里采用了widget=...，在页面上显示为一个输入密码的INPUT元素
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('username', 'email', 'body')
 

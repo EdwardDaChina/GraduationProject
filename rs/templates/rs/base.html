@@ -1,9 +1,10 @@
+{% load blog_tags %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}主页{% endblock %}</title>
+    <title>{% block title %}My Comments{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
 <body>
@@ -11,8 +12,10 @@
         {% block content %}
         {% endblock %}
     </div>
-    <div id="sidebar">
-        <h2>我的主页</h2>
+<div id="sidebar">
+        <h2>My blog</h2>
+        <p>This is my blog.</p>
     </div>
+
 </body>
 </html>

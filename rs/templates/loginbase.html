@@ -7,14 +7,14 @@
 </head>
 <body>
     <div id="header">
-        <span class="logo">Bookmarks</span>
+        <span class="logo">Welcome</span>
 
 
-      <ul class="menu">
-        <li {% if section == 'dashboard' %} class='selected' {% endif %} >
-          <a href="{% url 'rs:dashboard' %}">My dashboard</a>
-         </li>
-      </ul>
+{% if request.user.is_authenticated %}
+    <ul class="menu">
+        <li {% if section == 'dashboard' %}class="selected"{% endif %}><a href="{% url 'rs:dashboard' %}">Personal Center</a></li>
+    </ul>
+    {% endif %}
 
 
     <span class="user">
@@ -25,11 +25,20 @@
         {% endif %}
     </span>
 
+        {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message|safe }}<a href="#" class="close">X</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
     </div>
     <div id="content">
         {% block content %}
         {% endblock %}
     </div>
+
 </body>
 </html>
 

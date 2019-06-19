@@ -1,12 +1,10 @@
-from .models import Post
-from .models import Profile
+from .models import Post, Profile, Genre, Product, Author, Cover, Publication, Comment
 from django.contrib import admin
-from .models import Genre, Product, Author, Cover, Publication
 
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'date_of_birth', 'photo']
+    list_display = ['user', 'date_of_birth']
 
 
 @admin.register(Post)
@@ -46,7 +44,15 @@ class PublicationAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title', 'author', 'genre', 'price', 'pubtime']
+    list_display = ['title', 'author', 'genre', 'cover', 'price', 'pubtime']
     list_filter = ['genre', 'author', 'publication', 'cover']  # 必须有两个及两个以上参会显示侧边栏
     list_editable = ['price']
     prepopulated_fields = {'slug': ('title',)}  # 让slug字段通过name字段自动生成
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email', 'product', 'created', 'active')
+    list_filter = ('active', 'created', 'updated')
+    search_fields = ('name', 'email', 'body')
+
